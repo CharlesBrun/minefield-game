@@ -1,17 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import params from '../params'
+import Mine from './Mine'
 
 type props = {
-  mined:boolean, 
-  opened:boolean, 
-  nearMines:number
+  mined: boolean, 
+  opened: boolean, 
+  nearMines: number,
+  exploded: boolean,
 }
 
-const Field:React.FC<props> = ({mined, opened, nearMines}) => {
+const Field:React.FC<props> = ({mined, opened, nearMines, exploded}) => {
 
     const styleFields:any = [styles.field]
     if(opened) styleFields.push(styles.opened)
+    if(exploded) styleFields.push(styles.exploded)
     if(styleFields.length === 1) styleFields.push(styles.regular)
 
 let color
@@ -29,6 +32,7 @@ if(nearMines > 0){
           {nearMines}
         </Text> : false
       }
+      { mined && opened ? <Mine/> : false }
     </View>
   )
 }
@@ -57,5 +61,9 @@ const styles = StyleSheet.create({
     label: {
       fontWeight: 'bold',
       fontSize: params.fontSize,
+    },
+    exploded: {
+      backgroundColor: 'red',
+      borderColor: 'red',
     }
 })

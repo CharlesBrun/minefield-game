@@ -16,9 +16,7 @@ function App(): React.JSX.Element {
       <Text>
         Tamanho da grade: {params.getRowsAmount()} x {params.getColumnsAmount()} 
       </Text>
-      <Field mined={false} opened={false} nearMines={0}/>
-      <Field mined={false} opened={true} nearMines={0}/>
-      <Field mined={false} opened={true} nearMines={2}/>
+      <Field mined={true} opened={true} nearMines={0} exploded={true}/>
     </View>
   );
 }
