@@ -2,20 +2,24 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import params from '../params'
 import Mine from './Mine'
+import Flag from './Flag'
 
 type props = {
   mined: boolean, 
   opened: boolean, 
   nearMines: number,
   exploded: boolean,
+  flagged: boolean,
+  bigger: boolean
 }
 
-const Field:React.FC<props> = ({mined, opened, nearMines, exploded}) => {
+const Field:React.FC<props> = ({mined, opened, nearMines, exploded, flagged, bigger}) => {
 
     const styleFields:any = [styles.field]
-    if(opened) styleFields.push(styles.opened)
-    if(exploded) styleFields.push(styles.exploded)
-    if(styleFields.length === 1) styleFields.push(styles.regular)
+    if (opened) styleFields.push(styles.opened)
+    if (exploded) styleFields.push(styles.exploded)
+    // if (flagged) styleFields.push(styles.flagged)
+    if (!opened && !exploded) styleFields.push(styles.regular)
 
 let color
 if(nearMines > 0){
@@ -33,6 +37,7 @@ if(nearMines > 0){
         </Text> : false
       }
       { mined && opened ? <Mine/> : false }
+      {flagged && !opened ? <Flag bigger={bigger} /> : false}
     </View>
   )
 }
