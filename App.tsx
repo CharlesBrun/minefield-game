@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   StyleSheet,
@@ -9,14 +9,33 @@ import {
 import params from './src/params';
 import Field from './src/components/Field';
 
+import { createMinedBoard } from './src/functions'
+import Minefield from './src/components/Minefield';
+
 function App(): React.JSX.Element {
+  const minesAmount = () => {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+
+    return Math.ceil(cols * rows * params.difficultLevel)
+  }
+
+  const createState = () => {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+
+    return {
+      board: createMinedBoard(rows, cols, minesAmount())
+    }
+  }
+
+  const [state, setState] = useState(createState());
+
   return (
     <View style={styles.container}>
-      <Text style={styles.wealcome}> Iniciando o Mines </Text>
-      <Text>
-        Tamanho da grade: {params.getRowsAmount()} x {params.getColumnsAmount()} 
-      </Text>
-      <Field mined={false} opened={false} nearMines={0} exploded={false} flagged={true} bigger={false}/>
+      <View style={styles.board}>
+          <Minefield board={state.board} />
+        </View>
     </View>
   );
 }
@@ -24,14 +43,11 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    justifyContent: 'flex-end'
   },
-  wealcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  board: {
+    alignItems: 'center',
+    backgroundColor: '#AAA'
   }
 });
 
