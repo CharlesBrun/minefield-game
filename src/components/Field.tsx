@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import params from '../params'
 import Mine from './Mine'
 import Flag from './Flag'
@@ -10,10 +10,12 @@ type props = {
   nearMines: number,
   exploded: boolean,
   flagged: boolean,
-  bigger: boolean
+  bigger: boolean,
+  onOpen: any,
+  onSelect: any
 }
 
-const Field:React.FC<props> = ({mined, opened, nearMines, exploded, flagged, bigger}) => {
+const Field:React.FC<props> = ({mined, opened, nearMines, exploded, flagged, bigger, onOpen, onSelect}) => {
 
     const styleFields:any = [styles.field]
     if (opened) styleFields.push(styles.opened)
@@ -30,15 +32,17 @@ if(nearMines > 0){
 }
 
   return (
-    <View style={styleFields}>
-      {!mined && opened && nearMines > 0 ?
-        <Text style={[styles.label, { color:color }]}>
-          {nearMines}
-        </Text> : false
-      }
-      { mined && opened ? <Mine/> : false }
-      {flagged && !opened ? <Flag bigger={bigger} /> : false}
-    </View>
+    <TouchableWithoutFeedback onPress={onOpen} onLongPress={onSelect}>
+      <View style={styleFields}>
+        {!mined && opened && nearMines > 0 ?
+          <Text style={[styles.label, { color:color }]}>
+            {nearMines}
+          </Text> : false
+        }
+        { mined && opened ? <Mine/> : false }
+        {flagged && !opened ? <Flag bigger={bigger} /> : false}
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

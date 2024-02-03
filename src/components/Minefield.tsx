@@ -3,10 +3,13 @@ import React from 'react'
 import Field from './Field'
 import { createBoardType } from '../types'
 
-const Minefield:React.FC<{board:createBoardType[][]}> = ({board}) => {
+const Minefield:React.FC<{board:createBoardType[][], onOpenField:any, onSelectField:any}> = ({board, onOpenField, onSelectField}) => {
     const rows = board.map((row, r) => {
         const columns = row.map((field, c) => {
-            return <Field {...field} key={c} />
+            return <Field {...field} key={c} 
+            onOpen={() => onOpenField(r, c)} 
+            onSelect={() => onSelectField(r, c)} 
+            />
         })
         return <View key={r}
             style={{flexDirection: 'row'}}>{columns}</View>

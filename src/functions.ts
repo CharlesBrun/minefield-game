@@ -86,10 +86,10 @@ const openField = (board: createBoardType[][], row: number, column: number) => {
 }
 
 const fields = (board: any) => [].concat(...board)
-const hadExplosion = (board: createBoardType) => fields(board).filter(field => (field as createBoardType).exploded).length > 0
+const hadExplosion = (board: createBoardType[][]) => fields(board).filter(field => (field as createBoardType).exploded).length > 0
 const pendding = (field: createBoardType) => (field.mined && !field.flagged) || (!field.mined && !field.opened)
-const wonGame = (board: createBoardType) => fields(board).filter(pendding).length === 0
-const showMines = (board: createBoardType) => fields(board)
+const wonGame = (board: createBoardType[][]) => fields(board).filter(pendding).length === 0
+const showMines = (board: createBoardType[][]) => fields(board)
 .filter(field => (field as createBoardType).mined).forEach(field => (field as createBoardType).opened = true)
 
 const invertFlag = (board: createBoardType[][], row: number, column: number) => {
@@ -97,7 +97,7 @@ const invertFlag = (board: createBoardType[][], row: number, column: number) => 
     field.flagged = !field.flagged
 }
 
-const flagsUsed = (board: createBoardType) => fields(board).filter(field => (field as createBoardType).flagged).length
+const flagsUsed = (board: createBoardType[][]) => fields(board).filter(field => (field as createBoardType).flagged).length
 
 export { 
     createMinedBoard,
