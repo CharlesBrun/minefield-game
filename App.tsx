@@ -7,14 +7,17 @@ import {
   View,
 } from 'react-native';
 import params from './src/params';
-import { cloneBoard, createMinedBoard, hadExplosion, invertFlag, openField, showMines, wonGame } from './src/functions'
+import { cloneBoard, createMinedBoard, flagsUsed, hadExplosion, invertFlag, openField, showMines, wonGame } from './src/functions'
 import Minefield from './src/components/Minefield';
 import { createBoardType } from './src/types';
+import Header from './src/components/Header';
+import LevelSelection from './src/screens/LevelSelection';
 
 interface AppState {
   board: createBoardType[][];
   lost: boolean;
   won: boolean;
+  showLevelSelection: boolean;
 }
 
 function App(): React.JSX.Element {
@@ -33,6 +36,7 @@ function App(): React.JSX.Element {
       board: createMinedBoard(rows, cols, minesAmount()),
       lost: false,
       won: false,
+      showLevelSelection: false,
     };
   }
 
@@ -65,7 +69,7 @@ function App(): React.JSX.Element {
       Alert.alert('Parabéns', 'Você Venceu!')
     }
 
-    setState({ board, won, lost: false })
+    setState({ board, won, lost: false, showLevelSelection:false })
   }
 
   const onLevelSelected = (level: number) => {
@@ -75,6 +79,12 @@ function App(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
+      <LevelSelection isVisible={state.showLevelSelection}
+          onLevelSelected={onLevelSelected}
+          onCancel={() => setState({ board: state.board, won: false, lost: false, showLevelSelection: false })} />
+      <Header flagsLeft={minesAmount() - flagsUsed(state.board)}
+          onNewGame={() => setState(createState())} 
+          onFlagPress={() => setState({ board: state.board, won: false, lost: false, showLevelSelection: true })} />
       <View style={styles.board}>
           <Minefield board={state.board} 
           onOpenField={onOpenField}
