@@ -3,7 +3,7 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Project Preview
-<img src="preview.gif" alt="Project Preview" width="300" height="200">
+<img src="preview.gif" alt="Project Preview" width="300" height="600">
 
 # Getting Started
 
