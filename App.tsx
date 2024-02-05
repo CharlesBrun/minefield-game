@@ -48,7 +48,7 @@ function App(): React.JSX.Element {
 
     if (lost) {
       showMines(board)
-      Alert.alert('Perdeeeeu!', 'Que buuuurro!')
+      Alert.alert('Booom!', 'Perdeu!')
     }
 
     if (won) {
