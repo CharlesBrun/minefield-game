@@ -1,8 +1,7 @@
 # About the project
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a project for an old game called Minesweeper, made in React Native.
 
-# Project Preview
 <img src="preview.gif" alt="Project Preview" width="300" height="600">
 
 # Getting Started
